@@ -1,6 +1,6 @@
 <?php 
 
-$caminho = __DIR__ . "/infraestrutura/database/banco.db";
+$caminho = __DIR__ . "/database/banco.db";
 
 try {
     $pdo = new PDO('sqlite' . $caminho);

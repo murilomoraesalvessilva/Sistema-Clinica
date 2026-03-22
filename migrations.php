@@ -1,6 +1,6 @@
 <?php 
 
-require_once __DIR__ . "/infraestrutura/database.php";
+require_once __DIR__ . "/database.php";
 
 $pdo->exec("CREATE TABLE IF NOT EXISTS medicos(
 
