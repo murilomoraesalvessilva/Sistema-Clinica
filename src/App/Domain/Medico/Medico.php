@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Domain\Medico;
+namespace App\Domain\Medico;
 
 class Medico {
     public function __construct(

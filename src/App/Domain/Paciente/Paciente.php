@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Domain\Paciente;
+namespace App\Domain\Paciente;
 class Paciente {
 
     public function __construct(
