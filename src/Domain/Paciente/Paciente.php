@@ -1,39 +1,52 @@
-<?php 
+<?php
 
+namespace Src\Domain\Paciente;
 class Paciente {
 
-    public function __construct(private string $nome, private string $cpf, private array $telefone) {
+    public function __construct(
+        private string $nome, 
+        private string $cpf, 
+        private array $telefones, 
+        private string $dataNascimento
+        ) {
+            $this->telefones = $this->validarTelefone($telefones);
+        }
 
-        $this->nome = $nome;
-        $this->cpf = $cpf;
-        $this->telefone = $telefone;
+    private function validarTelefone(array $telefones): array {
+        if (count($telefones) > 2) {
+            throw new \InvalidArgumentException("São permitidos até 2 telefones");
+        }
 
+        return $telefones;
+    }
+
+    private function mascararTelefome(string $telefone): string {
+        $visiveis = substr($telefone, -4);
+        $ocultos = str_repeat("*", strlen($telefone) - 4);
+
+        return $ocultos . $visiveis;
     }
 
     public function getNome(): string {
-        
         return $this->nome;
-
     }
 
     public function getCpf(): string {
-
         return $this->cpf;
-
     }
 
-    public function getTelefone(): array {
-        
-        return $this->telefone;
-    
+    public function getTelefone(): string {
+        $resultado = "";
+
+        foreach ($this->telefones as $tel) {
+            $resultado .= $this->mascararTelefome($tel) . PHP_EOL;
+        }
+        return $resultado;
     }
 
     public function __toString(): string {
-
-        return "Paciente: $this->nome" . PHP_EOL . "CPF: $this->cpf";
-
+        return "NOME: $this->nome" . PHP_EOL . "CPF: $this->cpf" . PHP_EOL . "TELEFONES:" . PHP_EOL . $this->getTelefone() . "DATA DE NASCIMENTO: $this->dataNascimento";
     }
-
 }
 
 ?>
