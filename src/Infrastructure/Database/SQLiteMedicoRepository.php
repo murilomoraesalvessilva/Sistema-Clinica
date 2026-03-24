@@ -1,6 +1,6 @@
 <?php
 
-namespace Infrastructure\Database;
+namespace App\Infrastructure\Database;
 
 use App\Domain\Medico\Medico;
 use App\Domain\Medico\MedicoRepositoryInterface;
@@ -22,7 +22,7 @@ class SQLiteMedicoRepository implements MedicoRepositoryInterface {
         ]);
     }
 
-    public function buscarPorId(int $id): ?Medico {
+    public function buscarPorID(int $id): ?Medico {
         $stmt = $this->pdo->prepare("
             SELECT * FROM medicos WHERE id = :id
         ");
