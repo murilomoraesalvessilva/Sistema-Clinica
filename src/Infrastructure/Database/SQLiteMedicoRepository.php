@@ -6,23 +6,23 @@ use App\Domain\Medico\Medico;
 use App\Domain\Medico\MedicoRepositoryInterface;
 
 class SQLiteMedicoRepository implements MedicoRepositoryInterface {
-    public function __construct(private PDO $pdo) {
-        $this->pdo = $pdo
-    }
+
+    public function __construct(private PDO $pdo) {}
 
     public function salvar(Medico $medico): void {
         $stmt = $this->pdo->prepare("
-            INSERT INTO medicos (nome, crm, especialidade)
+            INSERT INTO medicos (nome, crm, especialidade) 
             VALUES (:nome, :crm, :especialidade)
         ");
 
         $stmt->execute([
-            ':nome' => $medico->getNome(),
-            ':crm' => $medico->getCrm(),
+            ':nome'         => $medico->getNome(),
+            ':crm'          => $medico->getCrm(),
             ':especialidade' => $medico->getEspecialidade()
         ]);
     }
-    public function buscarPorID(int $id): ?Medico {
+
+    public function buscarPorId(int $id): ?Medico {
         $stmt = $this->pdo->prepare("
             SELECT * FROM medicos WHERE id = :id
         ");
@@ -35,10 +35,10 @@ class SQLiteMedicoRepository implements MedicoRepositoryInterface {
         }
 
         return new Medico(
-            $dados['nome'], 
-            $dados['crm'], 
+            $dados['nome'],
+            $dados['crm'],
             $dados['especialidade']
-            );
+        );
     }
 
     public function listarTodos(): array {
@@ -54,8 +54,8 @@ class SQLiteMedicoRepository implements MedicoRepositoryInterface {
         }
 
         return $medicos;
-
     }
+
     public function deletar(int $id): void {
         $stmt = $this->pdo->prepare("
             DELETE FROM medicos WHERE id = :id

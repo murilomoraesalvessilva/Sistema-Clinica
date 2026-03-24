@@ -16,7 +16,8 @@ $pdo->exec("CREATE TABLE IF NOT EXISTS pacientes(
 id INTEGER PRIMARY KEY AUTOINCREMENT,
 nome TEXT NOT NULL,
 cpf TEXT NOT NULL,
-telefone TEXT NOT NULL,
+telefones TEXT NOT NULL,
+data_nascimento TEXT NOT NULL
 
 )");
 

@@ -44,6 +44,10 @@ class Paciente {
         return $resultado;
     }
 
+    public function getDataNascimento(): string {
+        return $this->dataNascimento;
+    }
+
     public function __toString(): string {
         return "NOME: $this->nome" . PHP_EOL . "CPF: $this->cpf" . PHP_EOL . "TELEFONES:" . PHP_EOL . $this->getTelefone() . "DATA DE NASCIMENTO: $this->dataNascimento";
     }
