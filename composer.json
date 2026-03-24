@@ -2,6 +2,11 @@
     "name": "murilo/hospital",
     "description": "projeto utilizando o cenario de um hospital em php",
     "type": "project",
+    "autoload": {
+        "ps4-4": {
+            "App\\": "src/"
+        }
+    },
     "require": {
         "doctrine/dbal": "^4.4",
         "illuminate/database": "^12.54"
