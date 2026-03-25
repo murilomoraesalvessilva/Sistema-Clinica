@@ -9,16 +9,13 @@ use App\Application\CadastrarMedico;
 use App\Application\CadastrarPaciente;
 use App\Application\AgendarConsulta;
 
-// ─── Conexão ───────────────────────────────────────────
 $pdo = new PDO('sqlite:' . __DIR__ . '/database/banco.db');
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-// ─── Repositórios ──────────────────────────────────────
 $medicoRepository   = new SQLiteMedicoRepository($pdo);
 $pacienteRepository = new SQLitePacienteRepository($pdo);
 $consultaRepository = new SQLiteConsultaRepository($pdo);
 
-// ─── Casos de uso ──────────────────────────────────────
 $cadastrarMedico   = new CadastrarMedico($medicoRepository);
 $cadastrarPaciente = new CadastrarPaciente($pacienteRepository);
 $agendarConsulta   = new AgendarConsulta(
@@ -27,7 +24,6 @@ $agendarConsulta   = new AgendarConsulta(
     $pacienteRepository
 );
 
-// ─── Médicos fictícios ─────────────────────────────────
 $medicos = [
     ["Dr. Carlos Andrade",  "11111", "Cardiologia"],
     ["Dra. Fernanda Lima",  "22222", "Neurologia"],
@@ -44,7 +40,7 @@ foreach ($medicos as $medico) {
     $cadastrarMedico->executar($medico[0], $medico[1], $medico[2]);
 }
 
-// ─── Pacientes fictícios ───────────────────────────────
+
 $pacientes = [
     ["Ana Paula Silva",   "529.982.247-25", ["11991110001"], "12/03/1990"],
     ["Bruno Henrique",    "987.654.321-00", ["11922223333", "11944445555"], "25/07/1985"],
@@ -70,7 +66,6 @@ foreach ($pacientes as $paciente) {
     }
 }
 
-// ─── Consultas fictícias ───────────────────────────────
 $consultas = [
     [1, 1, "25/03/2026", "08:00"],
     [2, 2, "25/03/2026", "09:00"],
