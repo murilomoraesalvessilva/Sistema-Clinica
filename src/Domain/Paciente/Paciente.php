@@ -9,6 +9,7 @@ class Paciente {
         private array $telefones, 
         private string $dataNascimento
         ) {
+            $this->cpf = $this->validarCpf($cpf);
             $this->telefones = $this->validarTelefone($telefones);
         }
 
@@ -18,6 +19,41 @@ class Paciente {
         }
 
         return $telefones;
+    }
+
+    private function validarCpf(string $cpf): string {
+
+        $cpf = preg_replace('/[^0-9]/', '', $cpf);
+
+        if (strlen($cpf) !== 11) {
+            throw new \InvalidArgumentException("CPF inválido: deve ter 11 dígitos.");
+        }
+
+        if (preg_match('/(\d)\1{10}/', $cpf)) {
+            throw new \InvalidArgumentException("CPF inválido: dígitos repetidos.");
+        }
+
+        $soma = 0;
+        for ($i = 0; $i < 9; $i++) {
+            $soma += intval($cpf[$i]) * (10 - $i);
+        }
+        $primeiro = ($soma % 11) < 2 ? 0 : 11 - ($soma % 11);
+
+        if (intval($cpf[9]) !== $primeiro) {
+            throw new \InvalidArgumentException("CPF inválido: dígito verificador incorreto.");
+        }
+
+        $soma = 0;
+        for ($i = 0; $i < 10; $i++) {
+            $soma += intval($cpf[$i]) * (11 - $i);
+        }
+        $segundo = ($soma % 11) < 2 ? 0 : 11 - ($soma % 11);
+
+        if (intval($cpf[10]) !== $segundo) {
+            throw new \InvalidArgumentException("CPF inválido: dígito verificador incorreto.");
+        }
+
+        return $cpf;
     }
 
     private function mascararTelefome(string $telefone): string {
